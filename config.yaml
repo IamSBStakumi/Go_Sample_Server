@@ -1,0 +1,7 @@
+package: api
+output: ./generated/openapi.gen.go # generatedディレクトリが存在しないと失敗する
+generate:
+  echo-server: true
+  models: true
+output-options:
+  skip-prune: true

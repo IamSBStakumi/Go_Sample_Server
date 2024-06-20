@@ -16,12 +16,6 @@ go install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@latest
 oapi-codegen -version
 ```
 
-### Install Golang
-
-- [Windows](./Install_Go/Windows.md)
-- [Mac](./Install_Go/Mac.md)
-- [Ubuntu](./Install_Go/Ubuntu.md)
-
 ## Generate Code
 
 作成されていなければ、config.yaml を作成
@@ -63,7 +57,7 @@ npx @redocly/cli bundle {メインのyamlファイル} -o ./generated/allinone.g
 oapi-codegen -config config.yaml generated/allinone.gen.yaml
 ```
 
-# init go server
+## init go server
 
 ```bash
 go mod init

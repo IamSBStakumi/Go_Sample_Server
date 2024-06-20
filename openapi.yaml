@@ -32,6 +32,9 @@ paths:
             schema:
               type: object
               properties:
+                username:
+                  type: string
+                  example: sampleUser
                 email:
                   type: string
                   format: email
@@ -41,6 +44,7 @@ paths:
                   format: password
                   example: Hoge1357
               required:
+                - username
                 - email
                 - password
   /user/{firebase_uid}:

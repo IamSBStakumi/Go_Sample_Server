@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"Go_Sample_Server/handler"
+	"Go_Sample_Server/server"
 
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
@@ -38,20 +39,6 @@ func (app *firebaseApp) InitAuthService()(*auth.Client, error){
 	return client, nil
 }
 
-type Server struct {}
-
-func (h Server) GetVersion(ctx echo.Context) error {
-	return ctx.JSON(http.StatusOK, "0.0.1")
-}
-
-func (h Server) RegisterUser(ctx echo.Context) error {
-	return ctx.JSON(http.StatusCreated, "Success!")
-}
-
-func (handle Server) DeleteUser(ctx echo.Context, firebaseUid string) error{
-	return ctx.JSON(http.StatusOK, "User deleted")
-}
-
 func main(){
 	e := echo.New()
 
@@ -60,11 +47,11 @@ func main(){
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		// TODO: Frontのアドレスに変更する
-		AllowOrigins: []string{"http://localhost:5173"},
+		AllowOrigins: []string{"http://localhost:3000"},
 		AllowMethods: []string{http.MethodGet, http.MethodPatch, http.MethodPost, http.MethodDelete, http.MethodOptions},
 	}))
 
-	server := Server{}
+	server := server.Server{}
 
 	app, _ := InitFirebaseApp()
 	client, _ := app.InitAuthService()

@@ -17,6 +17,7 @@ import (
 type RegisterUserJSONBody struct {
 	Email    openapi_types.Email `json:"email"`
 	Password string              `json:"password"`
+	Username string              `json:"username"`
 }
 
 // RegisterUserJSONRequestBody defines body for RegisterUser for application/json ContentType.
@@ -29,10 +30,10 @@ type ServerInterface interface {
 	GetVersion(ctx echo.Context) error
 	// 新規ユーザー登録
 	// (POST /register)
-	RegisterUser(ctx echo.Context) error
+	RegisterUser(ctx echo.Context, client *auth.Client) error
 	// ユーザーの削除
 	// (DELETE /user/{firebase_uid})
-	DeleteUser(ctx echo.Context, firebaseUid string) error
+	DeleteUser(ctx echo.Context, firebaseUid string, client *auth.Client) error
 }
 
 // ServerInterfaceWrapper converts echo contexts to parameters.
@@ -55,7 +56,7 @@ func (w *ServerInterfaceWrapper) RegisterUser(ctx echo.Context) error {
 	var err error
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.RegisterUser(ctx)
+	err = w.Handler.RegisterUser(ctx, &w.Client)
 	return err
 }
 
@@ -71,7 +72,7 @@ func (w *ServerInterfaceWrapper) DeleteUser(ctx echo.Context) error {
 	}
 
 	// Invoke the callback with all the unmarshaled arguments
-	err = w.Handler.DeleteUser(ctx, firebaseUid)
+	err = w.Handler.DeleteUser(ctx, firebaseUid, &w.Client)
 	return err
 }
 
@@ -97,7 +98,7 @@ func RegisterHandlers(router EchoRouter, si ServerInterface, client auth.Client)
 
 // Registers handlers, and prepends BaseURL to the paths, so that the paths
 // can be served under a prefix.
-func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface,client auth.Client, baseURL string) {
+func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, client auth.Client, baseURL string) {
 
 	wrapper := ServerInterfaceWrapper{
 		Handler: si,

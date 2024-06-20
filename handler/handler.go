@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"firebase.google.com/go/v4/auth"
 	"github.com/labstack/echo/v4"
 	"github.com/oapi-codegen/runtime"
 	openapi_types "github.com/oapi-codegen/runtime/types"
@@ -37,6 +38,7 @@ type ServerInterface interface {
 // ServerInterfaceWrapper converts echo contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler ServerInterface
+	Client auth.Client
 }
 
 // GetVersion converts echo context to params.
@@ -89,16 +91,17 @@ type EchoRouter interface {
 }
 
 // RegisterHandlers adds each server route to the EchoRouter.
-func RegisterHandlers(router EchoRouter, si ServerInterface) {
-	RegisterHandlersWithBaseURL(router, si, "")
+func RegisterHandlers(router EchoRouter, si ServerInterface, client auth.Client) {
+	RegisterHandlersWithBaseURL(router, si, client, "")
 }
 
 // Registers handlers, and prepends BaseURL to the paths, so that the paths
 // can be served under a prefix.
-func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface, baseURL string) {
+func RegisterHandlersWithBaseURL(router EchoRouter, si ServerInterface,client auth.Client, baseURL string) {
 
 	wrapper := ServerInterfaceWrapper{
 		Handler: si,
+		Client: client,
 	}
 
 	router.GET(baseURL+"/", wrapper.GetVersion)

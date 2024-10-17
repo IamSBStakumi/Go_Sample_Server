@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+      <fo:simple-page-master page-width="210mm" page-height="297mm" master-name="test">
+          <fo:region-body margin="0"></fo:region-body>
+      </fo:simple-page-master>
+  </fo:root>

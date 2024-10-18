@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+      <fo:layout-master-set>
+          <fo:simple-page-master page-width="210mm" page-height="297mm" master-name="test">
+              <fo:region-body margin="0"></fo:region-body>
+          </fo:simple-page-master>
+      </fo:layout-master-set>
+      <fo:page-sequence master-reference="test">
+          <fo:flow flow-name="xsl-region-body">
+              <fo:block-container absolute-position="absolute" top="0mm" left="0mm" width="200mm" height="50mm" z-index="0" overflow="overflow" font-size="30">
+                  <fo:block wrap-option="wrap" line-height="1.16" start-indent="0mm" font-family="IPAMincho">123-0226</fo:block>
+              </fo:block-container>
+          </fo:flow>
+      </fo:page-sequence>
+  </fo:root>

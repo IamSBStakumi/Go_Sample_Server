@@ -2,6 +2,7 @@ package server
 
 import (
 	"Go_Sample_Server/handler"
+	server "Go_Sample_Server/server/functions"
 	"Go_Sample_Server/structures"
 	"context"
 	"encoding/xml"
@@ -46,7 +47,7 @@ func (h Server) GetVersion(ctx echo.Context) error {
 		fmt.Printf("error: %v\n", err)
 	}
 
-	WriteFoFile(string(output))
+	server.WriteFoFile(string(output))
 
 	return ctx.JSON(http.StatusOK, "0.0.1")
 }

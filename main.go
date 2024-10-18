@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"Go_Sample_Server/handler"
-	"Go_Sample_Server/server"
 
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
@@ -51,7 +50,7 @@ func main(){
 		AllowMethods: []string{http.MethodGet, http.MethodPatch, http.MethodPost, http.MethodDelete, http.MethodOptions},
 	}))
 
-	server := server.Server{}
+	server := rest.Server{}
 
 	app, _ := InitFirebaseApp()
 	client, _ := app.InitAuthService()

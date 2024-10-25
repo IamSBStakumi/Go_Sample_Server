@@ -69,3 +69,18 @@ or
 go mod init example.com/m/v2
 go mod tidy
 ```
+
+## run linter
+
+標準でインストールされている linter = go vet
+
+```bash
+go vet
+```
+
+上記コマンドで全てのファイルに関して静的解析を行ってくれる。
+
+```bash
+go vet /dir_name/filename # ファイル指定
+go vet /dir_name/packageName # パッケージ名指定
+```
